@@ -9,6 +9,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import com.cashwu.notekeeper.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -24,14 +25,16 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-
-
         binding.btnUp.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+
+            val txt = binding.root.findViewById<TextView>(R.id.textDisplayedValue);
+
+            val originalValue = txt.text.toString().toInt();
+            val newValue = originalValue * 2;
+            txt.text = newValue.toString();
+
+            Snackbar.make(view, "Value $originalValue doubled to $newValue",
+                Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .setAnchorView(R.id.btnUp).show()
         }
@@ -51,11 +54,5 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
     }
 }
