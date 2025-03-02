@@ -1,5 +1,6 @@
 package com.cashwu.notekeeper
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -24,6 +26,34 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
+
+        class Person (val name: String, var weightLbs: Double){
+            var weightKilos: Double
+                get() = weightLbs / 2.20462
+                set(value) {
+                    weightLbs = value * 2.20462
+                }
+            fun eatDessert(addedIceCream: Boolean = true){
+                weightLbs += if (addedIceCream) 4 else 2
+            }
+
+            fun calcGoalWeightLbs(lbsToLose: Double = 10.0): Double {
+                return weightLbs - lbsToLose
+            }
+        }
+
+        val p = Person("bob", 200.0)
+        val name = p.name
+
+        p.eatDessert(false)
+        p.eatDessert()
+
+        p.calcGoalWeightLbs()
+        p.calcGoalWeightLbs(10.1)
+
+        val person = Person(weightLbs = 180.0, name = "cc")
+
 
         binding.btnUp.setOnClickListener { view ->
 
