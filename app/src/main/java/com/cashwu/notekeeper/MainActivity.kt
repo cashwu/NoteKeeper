@@ -36,10 +36,8 @@ class MainActivity : AppCompatActivity() {
 
         adapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        val spinnerCourses = binding.root.findViewById<Spinner>(R.id.spinnerCourses)
-
+        val spinnerCourses = binding.contentMain.spinnerCourses
         spinnerCourses.adapter = adapterCourses
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
