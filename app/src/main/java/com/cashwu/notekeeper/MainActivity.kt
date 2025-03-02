@@ -10,6 +10,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.TextView
 import com.cashwu.notekeeper.databinding.ActivityMainBinding
 
@@ -24,8 +26,20 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
+
+        val dm = DataManager()
+        val adapterCourses = ArrayAdapter<CourseInfo>(
+            this,
+            android.R.layout.simple_spinner_item,
+            dm.courses.values.toList())
+
+        adapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        val spinnerCourses = binding.root.findViewById<Spinner>(R.id.spinnerCourses)
+
+        spinnerCourses.adapter = adapterCourses
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
