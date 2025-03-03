@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat
 import com.cashwu.notekeeper.databinding.ActivityMainBinding
 import com.cashwu.notekeeper.databinding.ContentMainBinding
 
@@ -78,14 +79,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
 
        if (notePosition >= DataManager.notes.lastIndex) {
            val menuItem = menu?.findItem(R.id.action_next)
 
            if (menuItem!=null) {
-               menuItem.icon = getDrawable(R.drawable.ic_block_black_24)
+               menuItem.icon = ContextCompat.getDrawable(this, R.drawable.ic_block_black_24)
                menuItem.isEnabled = false
            }
        }
