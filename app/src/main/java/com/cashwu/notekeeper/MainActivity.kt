@@ -36,12 +36,12 @@ class MainActivity : AppCompatActivity() {
         notePosition = intent.getIntExtra(EXTRA_NOTE_POSITION, POSITION_NOT_SET)
 
         if (notePosition != POSITION_NOT_SET) {
-            displayNote(binding.contentMain)
+            displayNote()
         }
     }
 
-    private fun displayNote(contentMain: ContentMainBinding) {
-
+    private fun displayNote() {
+        val contentMain = binding.contentMain
         val note = DataManager.notes[notePosition]
 
         contentMain.textNoteTitle.setText(note.title)
@@ -63,7 +63,16 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
+            R.id.action_next -> {
+                moveNext()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun moveNext() {
+        ++notePosition
+        displayNote()
     }
 }
