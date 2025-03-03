@@ -2,6 +2,7 @@ package com.cashwu.notekeeper
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -25,5 +26,13 @@ class NoteListActivity : AppCompatActivity() {
             val activityIntent = Intent(this, MainActivity::class.java)
             startActivity(activityIntent)
         }
+
+        val listNotes = binding.contentNoteList.listNotes
+
+        listNotes.adapter = ArrayAdapter(
+           this,
+            android.R.layout.simple_list_item_1,
+            DataManager.notes
+        )
     }
 }
