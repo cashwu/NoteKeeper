@@ -33,7 +33,9 @@ class MainActivity : AppCompatActivity() {
         val spinnerCourses = binding.contentMain.spinnerCourses
         spinnerCourses.adapter = adapterCourses
 
-        notePosition = intent.getIntExtra(EXTRA_NOTE_POSITION, POSITION_NOT_SET)
+        notePosition =
+            savedInstanceState?.getInt(NOTE_POSITION, POSITION_NOT_SET)
+                ?: intent.getIntExtra(NOTE_POSITION, POSITION_NOT_SET)
 
         if (notePosition != POSITION_NOT_SET) {
             displayNote()
@@ -107,4 +109,16 @@ class MainActivity : AppCompatActivity() {
         note.text = binding.contentMain.textNoteText.text.toString()
         note.course = binding.contentMain.spinnerCourses.selectedItem as CourseInfo
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt(NOTE_POSITION, notePosition)
+    }
+
+//    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+//        super.onSaveInstanceState(outState, outPersistentState)
+//
+//        outState.putInt(EXTRA_NOTE_POSITION, notePosition)
+//    }
 }
