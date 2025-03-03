@@ -2,23 +2,18 @@ package com.cashwu.notekeeper
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
 import com.cashwu.notekeeper.databinding.ActivityMainBinding
+import com.cashwu.notekeeper.databinding.ContentMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+    private var notePosition = POSITION_NOT_SET
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +32,23 @@ class MainActivity : AppCompatActivity() {
 
         val spinnerCourses = binding.contentMain.spinnerCourses
         spinnerCourses.adapter = adapterCourses
+
+        notePosition = intent.getIntExtra(EXTRA_NOTE_POSITION, POSITION_NOT_SET)
+
+        if (notePosition != POSITION_NOT_SET) {
+            displayNote(binding.contentMain)
+        }
+    }
+
+    private fun displayNote(contentMain: ContentMainBinding) {
+
+        val note = DataManager.notes[notePosition]
+
+        contentMain.textNoteTitle.setText(note.title)
+        contentMain.textNoteText.setText(note.text)
+
+        val coursePosition = DataManager.courses.values.indexOf(note.course)
+        contentMain.spinnerCourses.setSelection(coursePosition)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
