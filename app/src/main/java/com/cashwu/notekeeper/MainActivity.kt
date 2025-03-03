@@ -8,7 +8,6 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import com.cashwu.notekeeper.databinding.ActivityMainBinding
-import com.cashwu.notekeeper.databinding.ContentMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,6 +37,9 @@ class MainActivity : AppCompatActivity() {
 
         if (notePosition != POSITION_NOT_SET) {
             displayNote()
+        } else {
+            DataManager.notes.add(NoteInfo())
+            notePosition = DataManager.notes.lastIndex
         }
     }
 
